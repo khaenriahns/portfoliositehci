@@ -39,13 +39,12 @@ This portfolio is designed for:
 
 The website includes the following sections:
 
-- **Header** – Artist logo and navigation links to the About, Portfolio, and Contact sections.
-- **Home** – Large introductory heading, tagline, and three artistic service categories.
-- **About Me** – Short personal introduction and overview of my artistic interests.
-- **Skills** – Character Design, Illustration, and Concept Art.
+- **Header** – Artist logo and navigation links to the About, Portfolio, and Contact sections. Logo can be clicked to refresh the page.
+- **Home** – Large introductory heading, tagline, and three artistic service categories that can be linked to each service.
+- **About Me** – Short personal introduction and an overview of my artistic skills.
 - **Portfolio** – Gallery displaying previous artwork and creative projects in a grid layout.
 - **Contact** – Contact information for commissions, inquiries, and collaborations.
-- **Footer** – Links to email and social media platforms, including Twitter/X, Instagram, VGen, and LinkedIn.
+- **Footer** – Links to email and social media platforms.
 
 ## Design & Color Scheme
 
