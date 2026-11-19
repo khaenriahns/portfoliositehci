@@ -502,3 +502,472 @@ section {
         font-size: 16px;
     }
 }
+/* EXTRA EFFECTS: LIGHT MODE, MICRO-ANIMATIONS, SECRET STOP SCREEN
+   Appended at the end to preserve every original CSS rule above. */
+
+/* Gentle transitions between themes. */
+body,
+.site-header,
+.footer,
+.service,
+.service-dot,
+.contact-pill,
+.more a,
+.theme-toggle {
+    transition: background-color 300ms ease, color 300ms ease, border-color 300ms ease, transform 220ms ease;
+}
+
+/* Light mode: still monochrome, just flipped for daytime. */
+body.theme-light {
+    --black: #f6f4f0;
+    --gray: #191919;
+    --white: #ffffff;
+}
+
+body.theme-light .service {
+    background: #dedbd4;
+    color: #141414;
+}
+body.theme-light .service-dot {
+    background: #191919;
+    color: #ffffff;
+}
+body.theme-light .contact-pill {
+    background: #f6f4f0;
+    color: #191919;
+}
+body.theme-light .contact-pill:hover {
+    background: #d6d2ca;
+    color: #191919;
+}
+body.theme-light .tile {
+    background: #d9e8ed;
+}
+body.theme-light .more a {
+    background: #e0ded9;
+    color: #151515;
+}
+body.theme-light .more a:hover {
+    background: #cac6be;
+}
+body.theme-light .contact-section h2 a:hover {
+    color: #666666;
+}
+
+/* A floating toggle doesn't squeeze the existing header navigation. */
+.theme-toggle {
+    position: fixed;
+    right: 22px;
+    bottom: 22px;
+    z-index: 50;
+    padding: 13px 20px;
+    border: 2px solid var(--gray);
+    border-radius: 100px;
+    background: var(--gray);
+    color: var(--black);
+    font: 800 13px/1 "DM Sans", Arial, sans-serif;
+    letter-spacing: .055em;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, .20);
+    cursor: pointer;
+}
+.theme-toggle:hover {
+    transform: translateY(-3px);
+}
+.theme-toggle:focus-visible,
+.stop-return:focus-visible,
+.site-header .brand:focus-visible,
+.footer .brand-logo:focus-visible {
+    outline: 3px solid #e76363;
+    outline-offset: 4px;
+}
+
+/* Subtle movement, without editing the original grid or sizes. */
+.hero-copy {
+    animation: gentle-entrance 700ms both;
+}
+.services {
+    animation: gentle-entrance 850ms 120ms both;
+}
+.service {
+    cursor: pointer;
+}
+.service:hover {
+    transform: translateY(-6px);
+}
+.service-dot {
+    transition: transform 250ms ease, background-color 300ms ease, color 300ms ease;
+}
+.service:hover .service-dot {
+    transform: rotate(45deg) scale(1.07);
+}
+.tile img {
+    transition: transform 450ms ease;
+}
+.tile:hover img {
+    transform: scale(1.06);
+}
+.header-logo,
+.brand-logo img {
+    transition: transform 220ms ease;
+}
+.site-header .brand:hover .header-logo,
+.footer .brand-logo:hover img {
+    transform: rotate(-7deg) scale(1.05);
+}
+.site-header .brand.logo-tapped .header-logo,
+.footer .brand-logo.logo-tapped img {
+    animation: logo-wiggle 250ms ease;
+}
+
+@keyframes gentle-entrance {
+    from { opacity: 0; translate: 0 16px; }
+    to   { opacity: 1; translate: 0 0; }
+}
+@keyframes logo-wiggle {
+    0%, 100% { transform: rotate(0deg); }
+    35% { transform: rotate(-11deg) scale(1.08); }
+    70% { transform: rotate(9deg) scale(1.04); }
+}
+
+/* The entire viewport turns red, including over the sticky header. */
+body.stop-mode {
+    overflow: hidden;
+}
+.stop-overlay[hidden] {
+    display: none;
+}
+.stop-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    display: grid;
+    place-items: center;
+    padding: 24px;
+    background: #e50000;
+    color: #fff;
+    text-align: center;
+    animation: stop-fade-in 220ms ease-out both;
+}
+.stop-content {
+    display: grid;
+    justify-items: center;
+    gap: 36px;
+    animation: stop-pop 400ms cubic-bezier(.16, 1, .3, 1) both;
+}
+.stop-content h2 {
+    margin: 0;
+    color: #fff;
+    font: 900 clamp(82px, 18vw, 260px)/.9 "DM Sans", Arial, sans-serif;
+    letter-spacing: -.07em;
+}
+.stop-return {
+    padding: 16px 30px;
+    border: 2px solid #fff;
+    border-radius: 100px;
+    background: transparent;
+    color: #fff;
+    font: 800 15px/1 "DM Sans", Arial, sans-serif;
+    letter-spacing: .05em;
+    cursor: pointer;
+    transition: background-color 200ms ease, color 200ms ease, transform 200ms ease;
+}
+.stop-return:hover {
+    background: #fff;
+    color: #c90000;
+    transform: translateY(-3px);
+}
+@keyframes stop-fade-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+@keyframes stop-pop {
+    from { opacity: 0; transform: scale(.88) translateY(24px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@media (max-width: 560px) {
+    .theme-toggle {
+        right: 12px;
+        bottom: 12px;
+        padding: 12px 15px;
+        font-size: 11px;
+    }
+    .stop-content {
+        gap: 26px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-copy, .services, .stop-overlay, .stop-content,
+    .site-header .brand.logo-tapped .header-logo,
+    .footer .brand-logo.logo-tapped img {
+        animation: none;
+    }
+    body, .site-header, .footer, .service, .service-dot,
+    .contact-pill, .more a, .theme-toggle, .tile img,
+    .header-logo, .brand-logo img, .stop-return {
+        transition: none;
+    }
+}
+
+/* MOBILE FIT + LIGHT-MODE CONTACT CONTRAST
+   These are additive overrides; the original CSS and HTML stay in place. */
+
+/* A white CONTACTS heading needs a dark surface, not a white background. */
+body.theme-light .contact-section {
+    background: #222222;
+    color: #ffffff;
+}
+body.theme-light .contact-section h2,
+body.theme-light .contact-section h2 a,
+body.theme-light .contact-section h2 a:hover {
+    color: #ffffff;
+}
+body.theme-light .contact-section h2 a:hover {
+    text-decoration: underline;
+    text-underline-offset: .12em;
+}
+/* Make the smaller CONTACTS navigation pill readable in light mode too. */
+body.theme-light .contact-pill {
+    background: #383838;
+    color: #ffffff;
+}
+body.theme-light .contact-pill:hover {
+    background: #515151;
+    color: #ffffff;
+}
+.contact-section {
+    transition: background-color 300ms ease, color 300ms ease;
+}
+
+/* Allow the layout to shrink instead of forcing horizontal scrolling. */
+.hero, .about, .portfolio, .contact-section, .footer,
+.hero-copy, .about-content, .gallery, .footer-links {
+    min-width: 0;
+}
+
+/* Tablet layouts: full-size cards should not be squeezed into five skinny columns. */
+@media (max-width: 900px) {
+    .services {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+    }
+    .services .service:last-child {
+        grid-column: 1 / -1;
+    }
+    .service {
+        min-height: 105px;
+        border-radius: 28px;
+        font-size: clamp(16px, 2.6vw, 23px);
+    }
+    .about {
+        grid-template-columns: minmax(0, 1fr);
+        min-height: 0;
+        padding-top: 72px;
+        padding-bottom: 72px;
+        gap: 38px;
+    }
+    .about h2 {
+        margin-bottom: 30px;
+    }
+    .about-art {
+        width: 100%;
+        max-width: 640px;
+        height: clamp(290px, 48vw, 480px);
+        justify-self: center;
+    }
+    .gallery {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-rows: repeat(6, clamp(145px, 22vw, 205px));
+        gap: 16px;
+    }
+    .tile-1 { grid-column: 1 / 3; grid-row: 1 / 3; }
+    .tile-2 { grid-column: 1; grid-row: 3; }
+    .tile-3 { grid-column: 2; grid-row: 3; }
+    .tile-4 { grid-column: 1; grid-row: 4 / 6; }
+    .tile-5 { grid-column: 2; grid-row: 4; }
+    .tile-6 { grid-column: 2; grid-row: 5; display: block; }
+    .tile-7 { grid-column: 1; grid-row: 6; display: block; }
+    .more { grid-column: 2; grid-row: 6; }
+    .footer {
+        gap: 16px;
+    }
+    .footer-links {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
+/* Phone-sized screens: single-column copy, comfortable tap targets and no cut-off links. */
+@media (max-width: 560px) {
+    .site-header {
+        padding-inline: 12px;
+        gap: 10px;
+    }
+    .site-header .brand {
+        flex: 0 0 auto;
+    }
+    .header-logo {
+        width: 44px;
+        height: 44px;
+    }
+    .nav {
+        gap: clamp(6px, 2vw, 12px);
+        font-size: clamp(10px, 2.75vw, 12px);
+    }
+    .nav a {
+        white-space: nowrap;
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+    }
+    .contact-pill {
+        padding: 9px 10px;
+    }
+    .hero {
+        min-height: 0;
+        padding-top: 30px;
+        padding-bottom: 54px;
+    }
+    .hero h1 {
+        font-size: clamp(78px, 29vw, 160px);
+    }
+    .tagline {
+        margin-top: 25px;
+        font-size: clamp(14px, 4vw, 17px);
+        line-height: 1.4;
+    }
+    .services {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 12px;
+        margin-top: 55px;
+    }
+    .services .service:last-child {
+        grid-column: auto;
+    }
+    .service {
+        min-height: 80px;
+        padding: 17px 20px;
+        border-radius: 22px;
+        font-size: clamp(15px, 4.5vw, 19px);
+        gap: 10px;
+    }
+    .about {
+        padding: 62px var(--pad) 58px;
+        gap: 28px;
+    }
+    .about h2 {
+        margin-bottom: 25px;
+        font-size: clamp(43px, 12vw, 60px);
+    }
+    .about p {
+        max-width: none;
+        font-size: clamp(15px, 4.2vw, 18px);
+        line-height: 1.55;
+        overflow-wrap: anywhere;
+    }
+    .skills {
+        margin-top: 30px;
+        padding-left: 26px;
+        font-size: clamp(17px, 5.4vw, 26px);
+        line-height: 1.5;
+        overflow-wrap: anywhere;
+    }
+    .about-art {
+        height: clamp(225px, 76vw, 340px);
+    }
+    .portfolio {
+        padding: 45px var(--pad) 68px;
+    }
+    .portfolio h2 {
+        margin-bottom: 28px;
+        font-size: clamp(29px, 8.8vw, 43px);
+    }
+    .gallery {
+        grid-template-rows: repeat(6, clamp(108px, 35vw, 155px));
+        gap: 12px;
+    }
+    .tile {
+        min-width: 0;
+    }
+    .more a {
+        width: 100%;
+        min-height: 44px;
+        padding: 12px 8px;
+        font-size: clamp(13px, 3.9vw, 16px);
+        white-space: nowrap;
+    }
+    .contact-section {
+        min-height: 340px;
+        padding: 58px 18px 82px;
+    }
+    .fish {
+        width: 100%;
+        max-height: 260px;
+    }
+    .contact-section h2 {
+        font-size: clamp(44px, 11vw, 68px);
+    }
+    .footer {
+        flex-direction: column;
+        gap: 15px;
+        padding: 22px 18px 92px;
+    }
+    .footer-links {
+        flex: none;
+        width: 100%;
+        max-width: 100%;
+        gap: 2px 12px;
+        font-size: clamp(12px, 3.7vw, 16px);
+    }
+    .footer-links a {
+        display: inline-flex;
+        align-items: center;
+        min-height: 44px;
+        padding: 7px 3px;
+    }
+    .brand-logo {
+        width: 52px;
+        height: 52px;
+        margin-left: 0;
+    }
+    .theme-toggle {
+        right: max(12px, env(safe-area-inset-right));
+        bottom: max(12px, env(safe-area-inset-bottom));
+        min-height: 44px;
+    }
+    .stop-content h2 {
+        font-size: clamp(70px, 23vw, 130px);
+    }
+    .stop-return {
+        min-height: 48px;
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 350px) {
+    .site-header { padding-inline: 9px; gap: 6px; }
+    .nav { gap: 6px; font-size: 10px; }
+    .contact-pill { padding-inline: 8px; }
+    .header-logo { width: 40px; height: 40px; }
+}
+
+@media (hover: none) {
+    .service:hover,
+    .theme-toggle:hover,
+    .stop-return:hover {
+        transform: none;
+    }
+    .tile:hover img {
+        transform: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .contact-section {
+        transition: none;
+    }
+}
