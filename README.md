@@ -29,6 +29,7 @@ This portfolio is designed for:
 ## Modifications Used
 
 - **HTML5** – Website structure and content.
+- **JAVASCRIPT** – Website functionality.
 - **CSS3** – Styling, layout, and responsiveness.
 - **CSS Flexbox** – Navigation and content alignment.
 - **CSS Grid** – Portfolio gallery and responsive layouts.
